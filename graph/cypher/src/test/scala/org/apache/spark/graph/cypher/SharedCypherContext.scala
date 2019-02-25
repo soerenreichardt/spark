@@ -10,7 +10,7 @@ trait SharedCypherContext extends SharedSQLContext {
 
   override def beforeAll() {
     super.beforeAll()
-    _cypherEngine = SparkCypherSession.create
+    _cypherEngine = SparkCypherSessionFoo.create
   }
 
   protected override def afterAll(): Unit = {

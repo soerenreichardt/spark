@@ -130,6 +130,9 @@ def launch_gateway(conf=None):
     java_import(gateway.jvm, "org.apache.spark.sql.*")
     java_import(gateway.jvm, "org.apache.spark.sql.hive.*")
     java_import(gateway.jvm, "scala.Tuple2")
+    java_import(gateway.jvm, "org.apache.spark.graph.api.*")
+    java_import(gateway.jvm, "org.apache.spark.graph.cypher.api.*")
+    java_import(gateway.jvm, "org.apache.spark.graph.cypher.SparkCypherSession")
 
     return gateway
 

@@ -122,7 +122,18 @@ sql = Module(
         "sql/test",
     ],
 )
-
+graph = Module(
+    name="graph",
+    dependencies=[sql],
+    source_file_regexes=[
+        "graph/api/",
+        "graph/cypher/",
+    ],
+    sbt_test_goals=[
+        "graph/api/test",
+        "graph/cypher/test",
+    ],
+)
 
 hive = Module(
     name="hive",
@@ -341,7 +352,7 @@ pyspark_core = Module(
     name="pyspark-core",
     dependencies=[],
     source_file_regexes=[
-        "python/(?!pyspark/(ml|mllib|sql|streaming))"
+        "python/(?!pyspark/(ml|mllib|sql|streaming|graph))"
     ],
     python_test_goals=[
         "pyspark.rdd",
@@ -380,6 +391,17 @@ pyspark_sql = Module(
         "pyspark.sql.streaming",
         "pyspark.sql.window",
         "pyspark.sql.tests",
+    ]
+)
+
+pyspark_graph = Module(
+    name="pyspark-graph",
+    dependencies=[pyspark_core, pyspark_sql, graph],
+    source_file_regexes=[
+        "python/pyspark/graph"
+    ],
+    python_test_goals=[
+        "pyspark.graph.tests"
     ]
 )
 

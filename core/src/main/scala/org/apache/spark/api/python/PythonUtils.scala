@@ -22,9 +22,10 @@ import java.util.{List => JList}
 
 import scala.collection.JavaConverters._
 import scala.collection.mutable.ArrayBuffer
-
 import org.apache.spark.SparkContext
 import org.apache.spark.api.java.{JavaRDD, JavaSparkContext}
+
+import scala.collection.mutable
 
 private[spark] object PythonUtils {
   /** Get the PYTHONPATH for PySpark, either from SPARK_HOME, if it is set, or from our JAR */
@@ -52,6 +53,13 @@ private[spark] object PythonUtils {
    */
   def toSeq[T](vs: JList[T]): Seq[T] = {
     vs.asScala
+  }
+
+  /**
+    * Convert java set of T into scala set of T
+    */
+  def toSet[T](vs: java.util.Set[T]): Set[T] = {
+    vs.asScala.toSet
   }
 
   /**

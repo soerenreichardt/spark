@@ -10,8 +10,10 @@ import org.opencypher.okapi.relational.api.graph.{RelationalCypherGraph, Relatio
 import org.opencypher.okapi.relational.api.planning.RelationalCypherResult
 import org.opencypher.okapi.relational.api.table.RelationalEntityTableFactory
 
-object SparkCypherSession {
+object SparkCypherSessionFoo {
   def create(implicit sparkSession: SparkSession): SparkCypherSession = new SparkCypherSession(sparkSession)
+  val barbaz = "foobar"
+  def bar() = "baz"
 }
 
 class SparkCypherSession(val sparkSession: SparkSession) extends RelationalCypherSession[DataFrameTable] with CypherEngine {
@@ -50,10 +52,10 @@ class SparkCypherSession(val sparkSession: SparkSession) extends RelationalCyphe
       )
     }
 
-    new CypherResult {
-      override def df: DataFrame = relationalGraph.cypher(query).records.table.df
-    }
+    MyCypherResult(relationalGraph.cypher(query).records.table.df)
   }
 }
+
+case class MyCypherResult(override val df: DataFrame) extends CypherResult
 
 
